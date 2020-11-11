@@ -16,23 +16,23 @@ export default function App() {
   useEffect(() => {
     const initialTodos = [
       { id: shortid.generate(), text: "Clean room" },
-      { id: shortid.generate(), text: "Do the dishes" }
+      { id: shortid.generate(), text: "Do the dishes" },
     ];
     setTodos(initialTodos);
   }, []);
 
-  createTodo = async () => {
+  const createTodo = async () => {
     setTodos([...todos, { text, id: shortid.generate() }]);
     setText("");
   };
 
-  deleteTodo = id => {
-    setTodos(todos.filter(todo => todo.id !== id));
+  const deleteTodo = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
-  updateTodo = () => {
+  const updateTodo = () => {
     setTodos(
-      todos.map(todo =>
+      todos.map((todo) =>
         todo.id === currentTodo ? { id: currentTodo, text } : todo
       )
     );
@@ -40,7 +40,7 @@ export default function App() {
     setEditing(false);
   };
 
-  editTodo = ({ id, text }) => {
+  const editTodo = ({ id, text }) => {
     setEditing(true);
     setCurrentTodo(id);
     setText(text);
@@ -53,14 +53,10 @@ export default function App() {
         editing={editing}
         text={text}
         setText={setText}
-        createTodo={this.createTodo}
-        updateTodo={this.updateTodo}
+        createTodo={createTodo}
+        updateTodo={updateTodo}
       />
-      <Todos
-        todos={todos}
-        editTodo={this.editTodo}
-        deleteTodo={this.deleteTodo}
-      />
+      <Todos todos={todos} editTodo={editTodo} deleteTodo={deleteTodo} />
     </SafeAreaView>
   );
 }
